@@ -1,0 +1,84 @@
+#同一个文件中key值唯一
+#同一层级之间只要有一个-代表就代表这一层级嵌套了一个列表[]
+hero1:
+  name: 安琪拉
+  word: 火焰是我最喜欢的玩具
+  Hp: 445.5
+
+#hero1与hero11的写法是相等的
+hero11: {name: 安琪拉,word: 火焰是我最喜欢的玩具,Hp: 445.5}
+
+hero2:
+  - name: 黄忠
+    word: 周日被我射熄火了
+    Hp: 440
+
+heros_name1:
+  - 安琪拉
+  - 黄忠
+  - 小乔
+
+heros_name2:
+  - 安琪拉
+    黄忠
+    小乔
+
+hero_name_list1:
+  - - 安琪拉
+    - 黄忠
+    - 小乔
+
+#hero_name_list1与hero_name_list2的写法是相等的
+hero_name_list2:
+  -
+    - 安琪拉
+    - 黄忠
+    - 小乔
+
+hero_name_list3:
+  安琪拉
+  黄忠
+  小乔
+
+hero3:
+  - name: 黄忠
+  - word: 周日被我射熄火了
+  - Hp: 440
+      - 1
+        -2
+
+heros_name3:
+  - 安琪拉
+  - 黄忠
+  - 小乔
+  - 测试: 是否有效
+
+mobile_params:
+  # shouji,appkey
+  - [13456755448, 0c818521d38759e1]
+  - [13456755448, 0c818521d38759e1]
+
+test:
+  url: '/code/'
+  json:
+    mobile: 15123456789
+
+login_fixture:
+  mobile: 15123456789
+  password: 123456
+
+shopping_cart: {good: 6, num: 1}
+
+user_login_new:
+  - url: /login/
+    method: POST
+    data: {username: 15123456789, password: 123456}
+    validata:
+      - eq: [$.success, true]
+      - eq: [$.body.token, null]
+  - url: /login/
+    method: POST
+    data: {username: 15123456710, password: 123456}
+    validata:
+      - eq: [$.success, true]
+      - eq: [$.body.token, null]
