@@ -1646,12 +1646,19 @@
 # "iframe_name") driver.find_element(By.CSS_SELECTOR, '#i_cecream > div.bili-feed4 > div.bili-header.large-header >
 # div.bili-header__channel > div.right-channel-container > div.channel-items__left > a:nth-child(1)').click()
 # time.sleep(3)
-
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# import time
 # driver = webdriver.Chrome()
 # driver.maximize_window()
 # driver.get('https://sahitest.com/demo/iframesTest.htm')
 # driver.find_element(By.ID, 'checkRecord').clear()
 # time.sleep(1)
+# element = driver.find_element(By.CSS_SELECTOR, 'body > input[type=button]:nth-child(4)')
+# # 获取元素的属性值
+# print(element.get_attribute('type'))
+# print(element.get_attribute('value'))
+# print(element.get_attribute('onclick'))
 # driver.find_element(By.ID, 'checkRecord').send_keys('666')
 # ele = driver.find_element(By.CSS_SELECTOR, 'body>iframe')
 # driver.switch_to.frame(ele)
@@ -1778,3 +1785,100 @@
 # @pytest.mark.parametrize('name,word', [('安琪拉', '火烧屁屁咯')])
 # def test_parametrize(name, word):
 #     print(f'{name}的台词是{word}')
+
+# from selenium import webdriver
+# from time import sleep
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.action_chains import ActionChains
+#
+# driver = webdriver.Chrome()
+# driver.maximize_window()
+
+
+# # 移动并悬停鼠标
+# driver.get('https://www.baidu.com')
+# element = driver.find_element(By.CSS_SELECTOR, '#s-top-left > div > a')
+# ActionChains(driver).move_to_element(element).perform()
+# # 获取元素的HTML内容
+# print(driver.find_element(By.ID, 'kw').get_attribute('outerHTML'))
+# sleep(3)
+
+# 切换不同的窗口,通过窗口的句柄切换
+# driver.get('https://cdn2.byhy.net/files/selenium/sample3.html')
+# # 先保存原窗口的句柄
+# mainwindow = driver.current_window_handle
+# print(mainwindow)
+# # 打开新的窗口
+# driver.find_element(By.TAG_NAME, 'a').click()
+# # 打印窗口的标题
+# print(driver.title)  # 此时页面的操作还停留在老窗口
+# # 页面操作切换到新窗口
+# for handle in driver.window_handles:
+#     driver.switch_to.window(handle)
+#     if 'Bing' in driver.title:
+#         break
+# # 打印新窗口的标题
+# print(driver.title)
+# driver.find_element(By.ID, 'sb_form_q').send_keys('这是必应')
+# sleep(1)
+# # 切换回老窗口
+# driver.switch_to.window(mainwindow)
+# print(driver.title)
+# sleep(2)
+
+# 对于选择框的select方法
+# from selenium.webdriver.support.ui import Select
+# driver.get('https://cdn2.byhy.net/files/selenium/test2.html')
+# select = Select(driver.find_element(By.CSS_SELECTOR, 'select#ss_multi'))
+# # 清除所有已选中的内容
+# select.deselect_all()
+# # 选择想选的内容
+# select.select_by_index(0)
+# select.select_by_value('小雷老师')
+# select.select_by_visible_text('小凯老师')
+# sleep(3)
+
+# 冻结页面，方便我们手动定位元素
+# 在F12控制台输入setTimeout(function(){debugger}, 5000)
+
+# # 对弹出框的操作
+# driver.switch_to.alert.accept()
+# driver.switch_to.alert.dismiss()
+# print(driver.switch_to.alert.text)  # 打印弹出框所显示的信息
+# # 弹出框需要输入内容时，先输入内容再确定
+# driver.switch_to.alert.send_keys('这是输入的内容')
+# driver.switch_to.alert.accept()
+
+# 对浏览器截屏
+# driver.get('https://www.baidu.com')
+# driver.get_screenshot_as_file('baidu.png')
+# driver.get('https://www.bing.com')
+# driver.get_screenshot_as_file('bing.png')
+# sleep(2)
+
+# # 上传文件的两种方式
+# # 有的网页上传文件，是没有 file 类型 的 input 元素的。不能使用send_keys方法时。
+# # 如果是Windows上的自动化，可以采用 Windows 平台专用的方法：
+# # 执行 pip install pypiwin32 确保 pywin32 已经安装，然后参考如下示例代码。
+# # 找到点击上传的元素，点击
+# driver.find_element(By.CSS_SELECTOR, '.dropzone').click()
+# sleep(2)  # 等待上传选择文件对话框打开
+# # 直接发送键盘消息给 当前应用程序，
+# # 前提是浏览器必须是当前应用
+# import win32com.client
+# shell = win32com.client.Dispatch("WScript.Shell")
+# # 输入文件路径，最后的'\n'，表示回车确定，也可能时 '\r' 或者 '\r\n'
+# shell.Sendkeys(r"h:\a2.png" + '\n')
+# sleep(1)
+
+# xpath和css的区别
+# //p[@class="capital huge-city"] //div/p[2] # xpath
+# a[href="http://www.miitbeian.gov.cn"] #top>div>div.article-style>div(2)  #css
+
+# # 使用xpath嵌套要注意的点，第二层嵌套是要使用.//而不能直接使用//
+# china = driver.find_element(By.ID, 'china')
+# elements = china.find_elements(By.XPATH, './/p')
+
+# 生成测试报告，在终端输入
+# pytest lianxi01 --html=report.html --self-contained-html
+

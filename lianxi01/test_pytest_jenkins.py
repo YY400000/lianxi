@@ -10,7 +10,7 @@ from utils.read_data import read_yaml
 
 def test_1():
     name = 'yy'
-    assert name == 'yy'
+    assert name == 'yy1'
 
 
 def test_2():
@@ -29,6 +29,7 @@ class TestCase:
 @pytest.fixture(scope='module')
 def driver():
     driver = webdriver.Chrome()
+    # driver.implicitly_wait(10)
     # driver.maximize_window()
     driver.get('https://www.baidu.com/')
     return driver
