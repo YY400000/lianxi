@@ -1926,14 +1926,14 @@
 # 所有的模拟鼠标操作，后面都必须跟perform方法
 # ActionChains(driver).move_to_element(element).perform()
 # 获取元素的坐标和尺寸
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from time import sleep
-
-driver = webdriver.Chrome()
-driver.implicitly_wait(5)
-driver.get('http://www.baidu.com')
-kw = driver.find_element(By.ID, 'kw')
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from time import sleep
+#
+# driver = webdriver.Chrome()
+# driver.implicitly_wait(5)
+# driver.get('http://www.baidu.com')
+# kw = driver.find_element(By.ID, 'kw')
 # # 打开新窗口
 # js = 'window.open("https://www.douban.com");'
 # driver.execute_script(js)
