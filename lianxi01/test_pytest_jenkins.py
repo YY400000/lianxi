@@ -10,7 +10,7 @@ from utils.read_data import read_yaml
 
 def test_1():
     name = 'yy'
-    assert name == 'yy1'
+    assert name == 'yy'
 
 
 def test_2():
@@ -28,18 +28,18 @@ class TestCase:
 
 @pytest.fixture(scope='module')
 def driver():
-    driver = webdriver.Chrome()
+    driver123 = webdriver.Chrome()
     # driver.implicitly_wait(10)
     # driver.maximize_window()
-    driver.get('https://www.baidu.com/')
-    return driver
+    driver123.get('https://www.baidu.com/')
+    return driver123
 
 
-def test_baidu(driver):
+def test_baidu9(driver):
     title = driver.title
     url = driver.current_url
     text = driver.find_element(By.CSS_SELECTOR, 'a[href="http://tieba.baidu.com/"]').text
-    button_text = driver.find_element(By.ID, 'su').accessible_name
+    button_text = driver.find_element(By.ID, 'su').get_attribute('value')
     assert title == '百度一下，你就知道'
     assert url == 'https://www.baidu.com/'
     assert text == '贴吧'
@@ -80,7 +80,7 @@ class TestBaiduYY:
 # 测试数据未分离时
 @pytest.mark.parametrize('key1', ['接口自动化1', 'UI自动化1', '性能测试1'])
 @pytest.mark.parametrize('key2', ['接口自动化2', 'UI自动化2', '性能测试2'])
-def test_baidu(driver, key1, key2):
+def test_baidu4(driver, key1, key2):
     print(key1, key2)
     driver.find_element(By.ID, 'kw').send_keys(key1, key2)
     driver.find_element(By.ID, 'su').click()
@@ -89,7 +89,7 @@ def test_baidu(driver, key1, key2):
 
 
 @pytest.mark.parametrize('username,password', [['admin', '123456'], ('test01', '123456')])
-def test_login(driver, username, password):
+def test_login1(driver, username, password):
     driver.get('http://sellshop.5istudy.online/sell/user/login_page')
     driver.find_element(By.ID, 'username').send_keys(username)
     driver.find_element(By.ID, 'password').send_keys(password)
@@ -98,8 +98,8 @@ def test_login(driver, username, password):
 
 
 # 测试数据分离
-@pytest.mark.parametrize('key',read_yaml()['skill'])
-def test_baidu(driver, key):
+@pytest.mark.parametrize('key', read_yaml()['skill'])
+def test_baidu5(driver, key):
     driver.get('https://www.baidu.com/')
     driver.find_element(By.ID, 'kw').send_keys(key)
     driver.find_element(By.ID, 'su').click()
@@ -107,7 +107,7 @@ def test_baidu(driver, key):
 
 
 @pytest.mark.parametrize('config_data', read_yaml()['userinfos'])
-def test_login(driver, config_data):
+def test_login2(driver, config_data):
     driver.get('http://sellshop.5istudy.online/sell/user/login_page')
     driver.find_element(By.ID, 'username').send_keys(config_data['username'])
     driver.find_element(By.ID, 'password').send_keys(config_data['password'])
@@ -116,7 +116,7 @@ def test_login(driver, config_data):
 
 
 @pytest.mark.parametrize('username, password', read_yaml()['userinfo_list'])
-def test_login(driver, username, password):
+def test_login3(driver, username, password):
     driver.get('http://sellshop.5istudy.online/sell/user/login_page')
     driver.find_element(By.ID, 'username').send_keys(username)
     driver.find_element(By.ID, 'password').send_keys(password)
@@ -197,7 +197,7 @@ class TestMobile:
     def teardown_class():
         print('class清理测试数据')
 
-    def test_mobile(self):
+    def test_mobile1(self):
         url = 'http://sellshop.5istudy.online/sell/shouji/query'
         params = {"shouji": '13456755448', 'appkey': '0c818521d38759e1'}
         r = requests.get(url=url, params=params)
@@ -211,7 +211,7 @@ class TestMobile:
         assert result['result']['company'] == '中国移动'
         assert result['result']['areacode'] == '0571'
 
-    def test_mobile_post(self):
+    def test_mobile_post1(self):
         url = 'http://sellshop.5istudy.online/sell/shouji/query'
         params = {
             "shouji": '13456755448',
@@ -231,7 +231,7 @@ class TestMobile:
 
 # 接口测试参数化
 @pytest.mark.parametrize('shouji,appkey', read_hero()['mobile_params'])
-def test_mobile_post(shouji, appkey):
+def test_mobile_post2(shouji, appkey):
     print('测试手机归属地post请求')
     url = 'http://sellshop.5istudy.online/sell/shouji/query'
     params = {

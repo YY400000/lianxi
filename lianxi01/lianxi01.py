@@ -1403,6 +1403,8 @@
 # import time
 # import os.path
 # import time
+# import pytest
+
 
 # with open(r'../games/1.txt','r') as file:
 #     print(file.readline())
@@ -1882,3 +1884,93 @@
 # 生成测试报告，在终端输入
 # pytest lianxi01 --html=report.html --self-contained-html
 
+# pytest可以指定某几个模块或函数执行，在终端输入
+# pytest lianxi01\test_pytest_jenkins.py::TestMobile::test_mobile lianxi01\test_pytest_jenkins.py::test_one
+# 或者根据用例的名字来搜索，参数-k
+# pytest -k 'test_one'
+
+
+# # 给类或类方法定义标签，选择有标签的命令执行，终端命令pytest lianxi01\lianxi01.py -m 网页测试
+# import pytest
+# @pytest.mark.网页测试
+# @pytest.mark.登录测试
+# class TestLogin2:
+#     def test_C001021(self):
+#         print('\n用例C001021')
+#         assert 1 == 1
+
+# 使用enumerate方法将列表的索引提取出来，分别为索引和值
+# list1 = ['a', 'b', 'c', 'd', 'e']
+# print(enumerate(list1))
+# for i, j in enumerate(list1):
+#     print(i)
+#     print(j)
+
+
+# import time
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# driver = webdriver.Chrome()
+# driver.get('http://127.0.0.1:8234/login.html')
+# driver.find_element(By.ID, 'username').send_keys('byhy')
+# driver.find_element(By.ID, 'password').send_keys('sdfsdf')
+# driver.find_element(By.ID, 'loginBtn').click()
+# driver.find_element(By.CSS_SELECTOR, 'body > nav > ol:nth-child(1) > li:nth-child(2) > a').click()
+# time.sleep(2)
+# ele = driver.find_element(By.CSS_SELECTOR, 'body > main > div.result-list > div:nth-child(2) > div.result-list-item-info > div:nth-child(3) > span.field-value > div > div')
+# print(ele.text)
+# time.sleep(2)
+
+
+# 模拟鼠标效果，但是光标不会移动
+# 所有的模拟鼠标操作，后面都必须跟perform方法
+# ActionChains(driver).move_to_element(element).perform()
+# 获取元素的坐标和尺寸
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from time import sleep
+
+driver = webdriver.Chrome()
+driver.implicitly_wait(5)
+driver.get('http://www.baidu.com')
+kw = driver.find_element(By.ID, 'kw')
+# # 打开新窗口
+# js = 'window.open("https://www.douban.com");'
+# driver.execute_script(js)
+# # 坐标和尺寸的字典
+# print(kw.rect)
+# # 坐标
+# print(kw.location)
+# # 尺寸
+# print(kw.size)
+# # 关掉当前tab页
+# sleep(1)
+# driver.close()
+# sleep(3)
+# # 直接退出浏览器
+# driver.quit()
+# 对当前窗口进行操作
+# kw.send_keys('测试窗口的前进后退')
+# kw.submit()     # 提交数据，只要有表单就可以提交
+# sleep(2)
+# driver.back()    # 返回前一个页面
+# sleep(2)
+# driver.forward()  # 前进到下一个页面
+# sleep(2)
+# driver.refresh()   # 刷新页面
+# sleep(2)
+
+# 多开页面和页面滑动都是执行js脚本
+# 对页面滚轮进行操作
+# kw.send_keys('页面上下滑动')
+# kw.submit()
+# print(driver.find_element(By.CSS_SELECTOR, '#help > a:nth-child(1)').location)   # 最下面的帮助坐标
+# sleep(3)
+# # 滚轮滑动到最下面
+# js = "document.documentElement.scrollTop=2249"
+# driver.execute_script(js)
+# sleep(3)
+# # 滚轮滑动到最上面
+# js = "document.documentElement.scrollTop=0"
+# driver.execute_script(js)
+# sleep(3)
